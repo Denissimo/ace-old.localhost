@@ -18,16 +18,22 @@ RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libonig-dev \
-                 icu-devtools \
-                 libicu-dev \
-                 libmcrypt4 \
-                 libmcrypt-dev \
-                 libpng-dev \
-                 zlib1g-dev \
-                 libxml2-dev \
-                 libzip-dev \
-    && docker-php-ext-configure gd \
+        icu-devtools \
+        libicu-dev \
+        libmcrypt4 \
+        libmcrypt-dev \
+        libpng-dev \
+        zlib1g-dev \
+        libxml2-dev \
+        libzip-dev \
+    	libpq-dev \
+        libgd3 \
+        libgd-dev\
+        zlib1g-dev \
+        zip \
+    && docker-php-ext-configure gd --with-freetype \
     && docker-php-ext-install -j$(nproc) gd \
+    && docker-php-ext-install pdo_pgsql zip \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug
 
