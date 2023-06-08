@@ -6,8 +6,8 @@ networks:
   default:
     external: true
     name: gateway
-  dev0:
-    internal: true
+#  dev0:
+#    internal: true
 
 services:
   nginx:
@@ -41,7 +41,7 @@ services:
       - php
     networks:
       - default
-      - dev0
+#      - dev0
   php:
     container_name: ace_php
     # у нас свой образ для PHP, указываем путь к нему и говорим что его надо собрать
@@ -67,4 +67,4 @@ services:
       - /var/lib/postgresql/data
     networks:
       - default
-      - dev0
+#      - dev0
