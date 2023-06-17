@@ -49,7 +49,7 @@ services:
     # монтируем директорию с проектами
     volumes:
       - ./www:/var/www
-      - ./images/php/:/usr/local/etc/php/conf.d/
+      - ./images/php/:/usr/local/etc/php/custom.d
     depends_on:
       - postgresql
     networks:
