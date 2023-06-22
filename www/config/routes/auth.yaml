@@ -1,0 +1,3 @@
+jwt_auth:
+  path: /api/login
+  methods: ['POST']

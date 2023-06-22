@@ -11,7 +11,7 @@ security:
                 property: username
     firewalls:
         jwt_auth:
-            pattern: ^/auth
+            pattern: ^/api/login
             stateless: true
             json_login:
                 check_path: jwt_auth
