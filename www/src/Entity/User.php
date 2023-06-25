@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use DateTimeImmutable;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
@@ -35,20 +36,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private string $password;
 
-    #[ORM\OneToMany(mappedBy: 'userId', targetEntity: UserEmail::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserEmail::class)]
     private Collection $userEmails;
 
-    #[ORM\Column(options: ['default'=>'CURRENT_TIMESTAMP'])]
-    private ?DateTimeImmutable $createdAt = null;
+    #[ORM\Column(
+        type: 'datetime_immutable',
+        nullable: false,
+        options: ['default'=>'CURRENT_TIMESTAMP']
+    )]
+    #[Gedmo\Timestampable(on:"create")]
+    private DateTimeImmutable $createdAt;
 
-    #[ORM\Column(options: ['default'=>'CURRENT_TIMESTAMP'])]
+    #[ORM\Column(
+        type: 'datetime_immutable',
+        nullable: true,
+        options: ['default'=>'CURRENT_TIMESTAMP']
+    )]
+    #[Gedmo\Timestampable(on:"update")]
     private ?DateTimeImmutable $updatedAt = null;
 
     public function __construct()
     {
         $this->userEmails = new ArrayCollection();
-        $this->createdAt = new DateTimeImmutable();
-        $this->updatedAt = new DateTimeImmutable();
     }
 
     public function getId(): int
@@ -143,7 +152,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->userEmails->contains($userEmail)) {
             $this->userEmails->add($userEmail);
-            $userEmail->setUserId($this);
+            $userEmail->setUser($this);
         }
 
         return $this;
@@ -153,8 +162,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->userEmails->removeElement($userEmail)) {
             // set the owning side to null (unless already changed)
-            if ($userEmail->getUserId() === $this) {
-                $userEmail->setUserId(null);
+            if ($userEmail->getUser() === $this) {
+                $userEmail->setUser(null);
             }
         }
 

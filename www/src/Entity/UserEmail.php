@@ -6,6 +6,7 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Repository\UserEmailRepository;
 use Doctrine\ORM\Mapping as ORM;
 use DateTimeImmutable;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: UserEmailRepository::class)]
 #[ApiResource]
@@ -25,24 +26,24 @@ class UserEmail
     #[ORM\Column]
     private ?DateTimeImmutable $verified = null;
 
-    #[ORM\Column(options: ['default'=>'CURRENT_TIMESTAMP'])]
+    #[ORM\Column(
+        type: 'datetime_immutable',
+        nullable: false,
+        options: ['default'=>'CURRENT_TIMESTAMP']
+    )]
+    #[Gedmo\Timestampable(on:"create")]
     private ?DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column(options: ['default'=>'CURRENT_TIMESTAMP'])]
+    #[ORM\Column(
+        type: 'datetime_immutable',
+        nullable: true,
+        options: ['default'=>'CURRENT_TIMESTAMP']
+    )]
+    #[Gedmo\Timestampable(on:"update")]
     private ?DateTimeImmutable $updatedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'userEmails')]
-    private ?User $userId = null;
-
-    /**
-     * @param DateTimeImmutable|null $createdAt
-     * @param DateTimeImmutable|null $updatedAt
-     */
-    public function __construct()
-    {
-        $this->createdAt = new DateTimeImmutable();
-        $this->updatedAt = new DateTimeImmutable();
-    }
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -109,14 +110,14 @@ class UserEmail
         return $this;
     }
 
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
-        return $this->userId;
+        return $this->user;
     }
 
-    public function setUserId(?User $userId): static
+    public function setUser(?User $user): static
     {
-        $this->userId = $userId;
+        $this->user = $user;
 
         return $this;
     }
