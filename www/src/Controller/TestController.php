@@ -27,7 +27,7 @@ class TestController extends AbstractController
         $email = new UserEmail();
         $email->setEmail(sprintf('%s@mail.ru', $userName))
             ->setUser($user)
-        ->setIsMain((bool)rand(0,2));
+        ->setIsMain(rand(0,1) > 0.5);
         $entityManager->persist($email);
         $entityManager->flush();
 

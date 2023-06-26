@@ -54,18 +54,6 @@ class UserEmail
         return $this->id;
     }
 
-    /**
-     * @param UuidV6 $id
-     *
-     * @return UserEmail
-     */
-    public function setId(UuidV6 $id): UserEmail
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
     public function getEmail(): string
     {
         return $this->email;
