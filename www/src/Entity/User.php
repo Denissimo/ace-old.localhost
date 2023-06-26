@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use DateTimeImmutable;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Uid\UuidV6;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
@@ -20,9 +21,10 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private int $id;
+    #[ORM\Column(type: 'uuid', unique: true)]
+    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
+    #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
+    private UuidV6 $id;
 
     #[ORM\Column(length: 180, unique: true)]
     private string $username;
@@ -60,7 +62,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->userEmails = new ArrayCollection();
     }
 
-    public function getId(): int
+    public function getId(): UuidV6
     {
         return $this->id;
     }
