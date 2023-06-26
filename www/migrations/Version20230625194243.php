@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230625191326 extends AbstractMigration
+final class Version20230625194243 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -26,8 +26,8 @@ final class Version20230625191326 extends AbstractMigration
         $this->addSql('CREATE UNIQUE INDEX UNIQ_8D93D649F85E0677 ON "user" (username)');
         $this->addSql('COMMENT ON COLUMN "user".created_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('COMMENT ON COLUMN "user".updated_at IS \'(DC2Type:datetime_immutable)\'');
-        $this->addSql('CREATE TABLE user_email (id INT NOT NULL, user_id_id INT DEFAULT NULL, email VARCHAR(255) NOT NULL, is_main BOOLEAN NOT NULL, verified TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY(id))');
-        $this->addSql('CREATE INDEX IDX_550872C9D86650F ON user_email (user_id_id)');
+        $this->addSql('CREATE TABLE user_email (id INT NOT NULL, user_id INT DEFAULT NULL, email VARCHAR(255) NOT NULL, is_main BOOLEAN NOT NULL, verified TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_550872CA76ED395 ON user_email (user_id)');
         $this->addSql('COMMENT ON COLUMN user_email.verified IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('COMMENT ON COLUMN user_email.created_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('COMMENT ON COLUMN user_email.updated_at IS \'(DC2Type:datetime_immutable)\'');
@@ -43,7 +43,7 @@ final class Version20230625191326 extends AbstractMigration
         $$ LANGUAGE plpgsql;');
         $this->addSql('DROP TRIGGER IF EXISTS notify_trigger ON messenger_messages;');
         $this->addSql('CREATE TRIGGER notify_trigger AFTER INSERT OR UPDATE ON messenger_messages FOR EACH ROW EXECUTE PROCEDURE notify_messenger_messages();');
-        $this->addSql('ALTER TABLE user_email ADD CONSTRAINT FK_550872C9D86650F FOREIGN KEY (user_id_id) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE user_email ADD CONSTRAINT FK_550872CA76ED395 FOREIGN KEY (user_id) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
     }
 
     public function down(Schema $schema): void
@@ -51,7 +51,7 @@ final class Version20230625191326 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('DROP SEQUENCE "user_id_seq" CASCADE');
         $this->addSql('DROP SEQUENCE user_email_id_seq CASCADE');
-        $this->addSql('ALTER TABLE user_email DROP CONSTRAINT FK_550872C9D86650F');
+        $this->addSql('ALTER TABLE user_email DROP CONSTRAINT FK_550872CA76ED395');
         $this->addSql('DROP TABLE "user"');
         $this->addSql('DROP TABLE user_email');
         $this->addSql('DROP TABLE messenger_messages');

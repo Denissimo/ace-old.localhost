@@ -23,21 +23,22 @@ class UserEmail
     #[ORM\Column]
     private ?bool $isMain = null;
 
-    #[ORM\Column]
+    #[ORM\Column(
+        type: 'datetime_immutable',
+        nullable: true
+    )]
     private ?DateTimeImmutable $verified = null;
 
     #[ORM\Column(
         type: 'datetime_immutable',
-        nullable: false,
-        options: ['default'=>'CURRENT_TIMESTAMP']
+        nullable: false
     )]
     #[Gedmo\Timestampable(on:"create")]
-    private ?DateTimeImmutable $createdAt = null;
+    private DateTimeImmutable $createdAt;
 
     #[ORM\Column(
         type: 'datetime_immutable',
-        nullable: true,
-        options: ['default'=>'CURRENT_TIMESTAMP']
+        nullable: true
     )]
     #[Gedmo\Timestampable(on:"update")]
     private ?DateTimeImmutable $updatedAt = null;
