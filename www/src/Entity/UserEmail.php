@@ -7,15 +7,18 @@ use App\Repository\UserEmailRepository;
 use Doctrine\ORM\Mapping as ORM;
 use DateTimeImmutable;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Types\UuidType;
+use Symfony\Component\Uid\UuidV6;
 
 #[ORM\Entity(repositoryClass: UserEmailRepository::class)]
 #[ApiResource]
 class UserEmail
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(type: 'uuid', unique: true)]
+    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
+    #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
+    private UuidV6 $id;
 
     #[ORM\Column(length: 255)]
     private string $email;
@@ -46,9 +49,21 @@ class UserEmail
     #[ORM\ManyToOne(inversedBy: 'userEmails')]
     private ?User $user = null;
 
-    public function getId(): ?int
+    public function getId(): UuidV6
     {
         return $this->id;
+    }
+
+    /**
+     * @param UuidV6 $id
+     *
+     * @return UserEmail
+     */
+    public function setId(UuidV6 $id): UserEmail
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getEmail(): string

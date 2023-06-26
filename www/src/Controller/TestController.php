@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\UserEmail;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,13 +16,19 @@ class TestController extends AbstractController
     public function index(EntityManagerInterface $entityManager,UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $user = new User();
-        $user->setUsername(str_shuffle('qwerty') . rand(100,999))
+        $userName = str_shuffle('qwerty') . rand(100,999);
+        $user->setUsername($userName)
             ->setRoles([])
             ->setPassword(
                 $userPasswordHasher->hashPassword($user, '123456')
             );
 
         $entityManager->persist($user);
+        $email = new UserEmail();
+        $email->setEmail(sprintf('%s@mail.ru', $userName))
+            ->setUser($user)
+        ->setIsMain((bool)rand(0,2));
+        $entityManager->persist($email);
         $entityManager->flush();
 
         return $this->render('test/index.html.twig', [
