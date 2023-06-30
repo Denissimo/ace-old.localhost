@@ -4,19 +4,23 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use DateTimeImmutable;
+use ApiPlatform\Doctrine\Orm\Paginator;
 
+#[AsController]
 class RegistrationController extends AbstractController
 {
     private EmailVerifier $emailVerifier;
@@ -24,6 +28,12 @@ class RegistrationController extends AbstractController
     public function __construct(EmailVerifier $emailVerifier)
     {
         $this->emailVerifier = $emailVerifier;
+    }
+
+    public function __invoke(Request $request, UserRepository $userRepository): Paginator
+    {
+        $page = (int) $request->query->get('page', 1);
+        return $userRepository->findQty($page);
     }
 
     #[Route('/register', name: 'app_register')]

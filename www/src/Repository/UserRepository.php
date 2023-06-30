@@ -8,6 +8,8 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
+use ApiPlatform\Doctrine\Orm\Paginator;
 
 /**
  * @extends ServiceEntityRepository<User>
@@ -54,6 +56,20 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $user->setPassword($newHashedPassword);
 
         $this->save($user, true);
+    }
+
+    public function findQty($qty): Paginator
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->orderBy('u.id', 'ASC')
+            ->setMaxResults($qty)
+            ->getQuery()
+            ->getResult()
+        ;
+        $doctrinePaginator = new DoctrinePaginator($qb);
+        $paginator = new Paginator($doctrinePaginator);
+
+        return $paginator;
     }
 
 //    /**
