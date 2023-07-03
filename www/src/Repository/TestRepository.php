@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Test;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
+use ApiPlatform\Doctrine\Orm\Paginator;
 
 /**
  * @extends ServiceEntityRepository<Test>
@@ -37,6 +39,22 @@ class TestRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function loadTests(int $page = 1): Paginator
+    {
+        $firstResult = ($page -1) * 10;
+        $queryBuilder = $this->createQueryBuilder('t');
+        $queryBuilder->select('t')
+            ->from(Test::class, 't')
+            ->where('t.number > :number')
+            ->setParameter('number', 800);
+        $query = $queryBuilder->getQuery()
+            ->setFirstResult($firstResult)
+            ->setMaxResults(10);
+        $doctrinePaginator = new DoctrinePaginator($query);
+
+        return new Paginator($doctrinePaginator);
     }
 
 //    /**
