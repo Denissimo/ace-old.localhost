@@ -12,10 +12,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-#[AsCommand(
-    name: 'test-generate',
-    description: 'Add a short description for your command',
-)]
+
 class TestGenerateCommand extends Command
 {
     private EntityManagerInterface $entityManager;
@@ -29,6 +26,8 @@ class TestGenerateCommand extends Command
     protected function configure(): void
     {
         $this
+            ->setName('test-generate')
+            ->setDescription('Generation test oblects')
             ->addOption(
                 'qty',
                 null,

@@ -7,6 +7,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
 use ApiPlatform\Doctrine\Orm\Paginator;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @extends ServiceEntityRepository<Test>
@@ -55,6 +56,20 @@ class TestRepository extends ServiceEntityRepository
         $doctrinePaginator = new DoctrinePaginator($query);
 
         return new Paginator($doctrinePaginator);
+    }
+
+
+    public function getTests(int $number = 0)
+    {
+        $queryBuilder = $this->createQueryBuilder('t');
+        $queryBuilder
+            ->where('t.number > :number')
+            ->setParameter('number', $number);
+        $query = $queryBuilder->getQuery()
+            ->setMaxResults(10);
+        $doctrinePaginator = new DoctrinePaginator($query);
+
+        return $doctrinePaginator->getQuery()->getResult();
     }
 
 //    /**

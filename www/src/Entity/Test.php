@@ -13,14 +13,14 @@ use DateTimeImmutable;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: TestRepository::class)]
-#[ApiResource(
-    paginationViaCursor: [
-        ['field' => 'id', 'direction' => 'DESC']
-    ],
-    paginationPartial: true
-)]
-#[ApiFilter(RangeFilter::class, properties: ["id"])]
-#[ApiFilter(OrderFilter::class, properties: ["id" => "DESC"])]
+//#[ApiResource(
+//    paginationViaCursor: [
+//        ['field' => 'id', 'direction' => 'DESC']
+//    ],
+//    paginationPartial: true
+//)]
+//#[ApiFilter(RangeFilter::class, properties: ["id"])]
+//#[ApiFilter(OrderFilter::class, properties: ["id" => "DESC"])]
 class Test
 {
     #[ORM\Id]

@@ -1,0 +1,7 @@
+get_decoy:
+  path: /get_dummy
+  controller: App\Controller\TestLoadController::getDummy
+
+get_tests:
+  path: /get_tests
+  controller: App\Controller\TestLoadController::getTests
