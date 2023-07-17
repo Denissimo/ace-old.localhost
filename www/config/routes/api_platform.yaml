@@ -6,3 +6,7 @@ api_platform:
 rabbit:
     path: /rabbit
     controller: App\Controller\RandomRabbit::rabbit
+
+cat:
+    path: /cat
+    controller: App\Controller\RandomRabbit::cat

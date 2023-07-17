@@ -1,0 +1,11 @@
+# This file is inside /config/api_platform/resources/user.yaml
+resources:
+  App\ApiResource\Cat:
+    shortName: Kitties
+    operations:
+      ApiPlatform\Metadata\Get:
+#        controller: App\Controller\RandomRabbit::cat
+        uriTemplate: '/cat'
+        routeName: 'cat'
+        name: 'cat'
+#        access_control: is_granted('VIEW', object)
