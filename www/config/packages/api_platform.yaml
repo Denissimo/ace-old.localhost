@@ -2,7 +2,9 @@ api_platform:
   # Set this to false if you want Webby to disappear.
   show_webby: false
   mapping:
-    paths: [ '%kernel.project_dir%/config/api_platform/resources' ]
+    paths:
+      - '%kernel.project_dir%/src/Entity'
+#      - '%kernel.project_dir%/config/api_platform/resources'
   defaults:
     pagination_enabled: true
     pagination_client_partial: true # Disabled by default
