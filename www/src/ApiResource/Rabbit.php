@@ -10,7 +10,7 @@ use App\Controller\RandomRabbit;
 #[ApiResource(
     operations: [
         new Get(
-            uriTemplate: '/rabbit',
+            uriTemplate: '/api/rabbit',
             routeName: 'rabbit',
             controller: RandomRabbit::class,
             name: 'rabbit')
