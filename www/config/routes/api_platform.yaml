@@ -8,5 +8,6 @@ rabbit:
     controller: App\Controller\RandomRabbit::rabbit
 
 cat:
-    path: /cat
+    path: /api/cat
     controller: App\Controller\RandomRabbit::cat
+    prefix: /api
