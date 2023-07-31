@@ -15,9 +15,4 @@ class RandomRabbit
     {
         return new JsonResponse(['rabbit' => 'created']);
     }
-
-    public function cat(): JsonResponse
-    {
-        return new JsonResponse(['cat' => 'created']);
-    }
 }

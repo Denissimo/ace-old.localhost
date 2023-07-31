@@ -6,8 +6,3 @@ api_platform:
 rabbit:
     path: /api/rabbit
     controller: App\Controller\RandomRabbit::rabbit
-
-cat:
-    path: /api/cat
-    controller: App\Controller\RandomRabbit::cat
-    prefix: /api

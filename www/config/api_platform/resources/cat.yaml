@@ -4,8 +4,14 @@ resources:
     shortName: Kitties
     operations:
       ApiPlatform\Metadata\Get:
-#        controller: App\Controller\RandomRabbit::cat
+#        controller: App\Controller\CatController::cat
         uriTemplate: '/api/cat'
-        routeName: 'cat'
-        name: 'cat'
-#        access_control: is_granted('VIEW', object)
+        routeName: 'cat_get'
+        name: 'cat_get'
+        access_control: is_granted('VIEW', object)
+
+      ApiPlatform\Metadata\Patch:
+        uriTemplate: '/api/cat'
+        routeName: 'cat_patch'
+        name: 'cat_patch'
+        access_control: is_granted('VIEW', object)

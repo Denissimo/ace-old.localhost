@@ -1,0 +1,9 @@
+cat_get:
+  path: /api/cat
+  methods: GET
+  controller: App\Controller\CatController::cat
+
+cat_patch:
+  path: /api/cat
+  methods: PATCH
+  controller: App\Controller\CatController::catPatch
