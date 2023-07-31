@@ -1,0 +1,3 @@
+rabbit:
+  path: /api/rabbit
+  controller: App\Controller\RandomRabbit::rabbit

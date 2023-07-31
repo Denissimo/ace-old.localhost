@@ -1,0 +1,10 @@
+resources:
+  App\ApiResource\Rabbit:
+    shortName: Rabbits
+    operations:
+      ApiPlatform\Metadata\Get:
+#        controller: App\Controller\CatController::cat
+        uriTemplate: '/api/rabbit'
+        routeName: 'rabbit'
+        name: 'rabbit'
+        access_control: is_granted('VIEW', object)

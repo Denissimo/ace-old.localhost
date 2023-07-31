@@ -7,15 +7,15 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\ApiResource;
 use App\Controller\RandomRabbit;
 
-#[ApiResource(
-    operations: [
-        new Get(
-            uriTemplate: '/api/rabbit',
-            routeName: 'rabbit',
-            controller: RandomRabbit::class,
-            name: 'rabbit')
-    ]
-)]
+//#[ApiResource(
+//    operations: [
+//        new Get(
+//            uriTemplate: '/api/rabbit',
+//            routeName: 'rabbit',
+//            controller: RandomRabbit::class,
+//            name: 'rabbit')
+//    ]
+//)]
 class Rabbit
 {
     #[ApiProperty(
