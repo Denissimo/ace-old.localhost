@@ -1,0 +1,10 @@
+resources:
+  App\ApiResource\Login:
+    shortName: Login
+    operations:
+      ApiPlatform\Metadata\Post:
+#        controller: App\Controller\CatController::cat
+        uriTemplate: '/api/login'
+        routeName: 'jwt_auth'
+        name: 'jwt_auth'
+        access_control: is_granted('VIEW', object)
