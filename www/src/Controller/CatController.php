@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Response\CatResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class CatController
@@ -14,7 +15,9 @@ class CatController
 
     public function cat(): JsonResponse
     {
-        return new JsonResponse(['cat' => 'created']);
+        $cat = new CatResponse();
+//        return (new JsonResponse())->setJson(json_encode($cat));
+        return (new JsonResponse())->setJson(json_encode(['a'=>'b']));
     }
 
     public function catPatch(): JsonResponse

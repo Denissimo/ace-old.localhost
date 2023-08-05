@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Response\Rabbit\RabbitResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class RandomRabbit
@@ -13,6 +14,6 @@ class RandomRabbit
 
     public function rabbit(): JsonResponse
     {
-        return new JsonResponse(['rabbit' => 'created']);
+        return new JsonResponse(new RabbitResponse());
     }
 }
