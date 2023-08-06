@@ -1,0 +1,93 @@
+openapi: 3.0.0
+
+info:
+  title: Ace API
+  description: API documentation
+  version: 1.0.0
+
+servers:
+  - url: http://ace.localhost
+    description: Localhost server from develop
+  - url: https://api.site.ru
+    description: API server
+
+tags:
+  - name: Login
+    description: Авторизация
+
+paths:
+  /api/login:
+    post:
+      security: []
+      tags:
+        - "Login"
+      summary: "Авторизация"
+      description: "Логин"
+      operationId: "auth"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: Логин
+                  example: 'user'
+                password:
+                  type: string
+                  description: Пароль
+                  example: '123456'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: eyJpYXQiOjE2OTEzMDY3NzcsImV4cCI6MTY5MTMxMDM3Nywicm9s
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+
+
+
+components:
+  securitySchemes:
+    bearerAuth: # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Unauthorized:
+      description: Unauthorized
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Код
+          example: 401
+        message:
+          type: string
+          description: Сообщение
+          example: Invalid credentials.
+
+    404:
+      description: Not found response
+      type: string
+      example: Not found
+
+    Token:
+      description: Токен
+      type: object
+      properties:
+        token:
+          type: string
+          description: Токен
+          example: eyJpYXQiOjE2OTEzMDY3NzcsImV4cCI6MTY5MTMxMDM3Nywicm9s

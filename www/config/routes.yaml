@@ -1,3 +1,7 @@
 controllers:
     resource: ../src/Controller/
     type: attribute
+
+_swagger-ui:
+    resource: '@HBSwaggerUiBundle/Resources/config/routing.yml'
+    prefix: /api

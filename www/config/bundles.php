@@ -16,4 +16,5 @@ return [
     Nelmio\CorsBundle\NelmioCorsBundle::class => ['all' => true],
     ApiPlatform\Symfony\Bundle\ApiPlatformBundle::class => ['all' => true],
     Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle::class => ['all' => true],
+    HarmBandstra\SwaggerUiBundle\HBSwaggerUiBundle::class => ['dev' => true]
 ];
