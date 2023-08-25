@@ -15,6 +15,9 @@ tags:
   - name: Login
     description: Авторизация
 
+  - name: User
+    description: Пользователи
+
 paths:
   /api/login:
     post:
@@ -38,6 +41,74 @@ paths:
                   type: string
                   description: Пароль
                   example: '123456'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: eyJpYXQiOjE2OTEzMDY3NzcsImV4cCI6MTY5MTMxMDM3Nywicm9s
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+
+  /api/user/{username}:
+    get:
+      security: []
+      tags:
+        - "User"
+      summary: "Получение данных пользователя"
+      description: "Данные пользователя"
+      operationId: "userdata"
+      parameters:
+        - in: path
+          name: username
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: eyJpYXQiOjE2OTEzMDY3NzcsImV4cCI6MTY5MTMxMDM3Nywicm9s
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+
+
+  /api/my/email/add:
+    post:
+      tags:
+        - "User"
+      summary: "Добавление емайла пользователю"
+      description: "Данные емайла"
+      operationId: "add_email"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: Емайл
+                  example: 'test@test.com'
+              required:
+                - email
       responses:
         '200':
           description: OK
@@ -91,3 +162,20 @@ components:
           type: string
           description: Токен
           example: eyJpYXQiOjE2OTEzMDY3NzcsImV4cCI6MTY5MTMxMDM3Nywicm9s
+
+    User:
+      description: Пользователь
+      type: object
+      properties:
+        id:
+          type: string
+          description: Токен
+          example: eyJpYXQiOjE2OTEzMDY3NzcsImV4cCI6MTY5MTMxMDM3Nywicm9s
+
+    Uuid:
+      type: string
+      format: uuid
+      example: "70fc5563-65f8-476a-b8e9-00099979e93c"
+
+security:
+  - bearerAuth: []

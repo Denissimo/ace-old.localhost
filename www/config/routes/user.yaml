@@ -1,0 +1,9 @@
+user_get:
+  path: /api/user/{username}
+  methods: GET
+  controller: App\Controller\ApiUserController::getUserByUsername
+
+email_add:
+  path: /api/my/email/add
+  methods: POST
+  controller: App\Controller\ApiUserController::addEmail
