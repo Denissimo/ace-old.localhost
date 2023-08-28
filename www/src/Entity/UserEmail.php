@@ -7,8 +7,9 @@ use App\Repository\UserEmailRepository;
 use Doctrine\ORM\Mapping as ORM;
 use DateTimeImmutable;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\UuidV6;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 #[ORM\Entity(repositoryClass: UserEmailRepository::class)]
 #[ApiResource]
@@ -21,10 +22,11 @@ class UserEmail
     private UuidV6 $id;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Email]
     private string $email;
 
     #[ORM\Column]
-    private ?bool $isMain = null;
+    private ?bool $isMain = false;
 
     #[ORM\Column(
         type: 'datetime_immutable',
@@ -47,6 +49,7 @@ class UserEmail
     private ?DateTimeImmutable $updatedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'userEmails')]
+    #[Ignore()]
     private ?User $user = null;
 
     public function getId(): UuidV6

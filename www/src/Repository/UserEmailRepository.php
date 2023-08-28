@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\UserEmail;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\BrowserKit\Request;
 
 /**
  * @extends ServiceEntityRepository<UserEmail>
@@ -38,6 +39,7 @@ class UserEmailRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
 
 //    /**
 //     * @return UserEmail[] Returns an array of UserEmail objects

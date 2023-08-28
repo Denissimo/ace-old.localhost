@@ -36,7 +36,7 @@ paths:
                 username:
                   type: string
                   description: Логин
-                  example: 'user'
+                  example: 'den'
                 password:
                   type: string
                   description: Пароль
