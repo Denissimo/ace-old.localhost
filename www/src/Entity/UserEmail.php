@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Ignore;
 
 #[ORM\Entity(repositoryClass: UserEmailRepository::class)]
+#[ORM\UniqueConstraint(name: 'UNIQ_USER_EMAIL', columns: ['user_id', 'email'])]
 #[ApiResource]
 class UserEmail
 {

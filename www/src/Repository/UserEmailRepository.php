@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
 use App\Entity\UserEmail;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -40,6 +41,17 @@ class UserEmailRepository extends ServiceEntityRepository
         }
     }
 
+    public function setMainEmail(UserEmail $userEmail)
+    {
+        $user = $userEmail->getUser();
+        $userEmails = $user->getUserEmails();
+        foreach ($userEmails as $email){
+            $email->setIsMain(false);
+        }
+        $userEmail->setIsMain(true);
+
+        $this->getEntityManager()->flush();
+    }
 
 //    /**
 //     * @return UserEmail[] Returns an array of UserEmail objects

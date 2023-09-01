@@ -58,6 +58,10 @@ class ApiUserController extends AbstractController
         }
 
         $entityManager->persist($userEmail);
+        if ($inputBag->get('is_main')) {
+            $entityManager->getRepository(UserEmail::class)
+                ->setMainEmail($userEmail);
+        }
         $entityManager->flush();
 
         return $this->json($userEmail);

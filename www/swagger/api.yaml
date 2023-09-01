@@ -105,8 +105,14 @@ paths:
               properties:
                 email:
                   type: string
+                  required: true
                   description: Емайл
                   example: 'test@test.com'
+                is_main:
+                  type: boolean
+                  required: false
+                  description: Главный
+                  example: false
               required:
                 - email
       responses:
