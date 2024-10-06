@@ -6,7 +6,7 @@ info:
   version: 1.0.0
 
 servers:
-  - url: http://ace.localhost
+  - url: http://ace-old.localhost
     description: Localhost server from develop
   - url: https://api.site.ru
     description: API server

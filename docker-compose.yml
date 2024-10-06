@@ -1,34 +1,22 @@
-# Версия docker-compose
-version: '3.8'
-# Список наших сервисов (контейнеров)
-
 networks:
   default:
     external: true
     name: gateway
-#  dev0:
-#    internal: true
 
 services:
   nginx:
     labels:
-#      - "traefik.enable=true"
-#      - "traefik.http.routers.ace.nginx.rule=Host(`ace.localhost`)"
-#      - "traefik.http.services.ace.nginx.loadbalancer.server.port=80"
-#      - "traefik.docker.network=gateway"
       traefik.enable: "true"
       traefik.http.services.ace_nginx-80.loadbalancer.server.port: "80"
       traefik.http.routers.ace_nginx.entrypoints: "web"
-      traefik.http.routers.ace_nginx.rule: "Host(`ace.localhost`)"
-#      traefik.http.routers.ace_nginx.service: "ace.nginx-80"
+      traefik.http.routers.ace_nginx.rule: "Host(`ace-old.localhost`)"
     container_name: ace_nginx
     hostname: ace_nginx
     # используем последний стабильный образ nginx
     image: nginx:latest
     depends_on:
       - php
-#    ports:
-#      - '80:80'
+
     # монтируем директории, слева директории на основной машине, справа - куда они монтируются в контейнере
     volumes:
       - ./hosts:/etc/nginx/conf.d
